@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/scrim_fl"
+        android:background="@color/green"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <View
+        android:id="@+id/ovel_view"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/dimen_412"
+        android:layout_height="@dimen/dimen_231"
+        android:background="@drawable/sp_oval_bg" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/google_icon_layout"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/dimen_50"
+        android:layout_height="@dimen/dimen_50">
+
+        <View
+            android:id="@+id/grey_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            android:background="@drawable/shape_default"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/google_iv"
+            android:layout_width="@dimen/dimen_30"
+            android:layout_height="@dimen/dimen_30"
+            android:layout_marginStart="@dimen/dimen_10"
+            android:src="@drawable/google"
+            app:layout_constraintBottom_toBottomOf="@+id/grey_view"
+            app:layout_constraintStart_toStartOf="@+id/grey_view"
+            app:layout_constraintTop_toTopOf="@+id/grey_view" />
+
+        <TextView
+            android:id="@+id/google_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dimen_15"
+            android:textColor="@color/white"
+            android:text="Search"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@+id/google_iv"
+            app:layout_constraintStart_toEndOf="@+id/google_iv"
+            app:layout_constraintTop_toTopOf="@+id/google_iv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
