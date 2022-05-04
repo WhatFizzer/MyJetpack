@@ -12,8 +12,11 @@
     <dimen name="dimen_15">15dp</dimen>
     <dimen name="dimen_22">22dp</dimen>
     <dimen name="dimen_30">30dp</dimen>
+    <dimen name="dimen_38">38dp</dimen>
     <dimen name="dimen_50">50dp</dimen>
     <dimen name="dimen_72">72dp</dimen>
+    <dimen name="dimen_110">110dp</dimen>
+    <dimen name="dimen_210">210dp</dimen>
     <dimen name="dimen_412">412dp</dimen>
     <dimen name="dimen_231">231dp</dimen>
 

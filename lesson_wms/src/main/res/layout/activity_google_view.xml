@@ -6,7 +6,7 @@
     tools:context=".GBaseActivity">
 
 
-    <View
+    <com.ahui.lessonwms.TouchView
         android:id="@+id/base_view"
         android:background="@color/black"
         android:layout_width="match_parent"
@@ -17,5 +17,12 @@
         android:text="start Anim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="SHOW POPUPWINDOW" />
 
 </FrameLayout>

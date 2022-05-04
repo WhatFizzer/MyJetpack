@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="popwin_anim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/tips_pop_anim_enter</item>
+        <item name="android:windowExitAnimation">@anim/tips_pop_anim_exit</item>
+    </style>
+
+</resources>

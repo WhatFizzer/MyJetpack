@@ -240,12 +240,14 @@ public class GSearchViewControl  {
 
     public void setProgress(float moveDistance) {
         Log.d(TAG, "setProgress: moveDistance=" + moveDistance + ",translateY=" + searchView.getOvalView().getTranslationY()+",mShifeRange=" + mShifeRange);
+        moveDistance = -moveDistance;
         float absProgress = Math.abs(moveDistance);
-        if (absProgress > oval_view_max_height) {
+        if (absProgress >= oval_view_max_height) {
             //移动距离超过view最大的height的时候，oval的状态应该是显示或是隐藏的状态
             //存在1-2像素的偏差，故直接判断大于小于即可
             if (searchView.getOvalView().getTranslationY()>mShifeRange
                     ||searchView.getOvalView().getTranslationY()<=(mShifeRange-oval_view_max_height+5)) { //5像素容错
+                Log.d(TAG, "setProgress: do open search");
                 doOpenSearch=true;
             } else {
                 Log.e(TAG, "setProgress: oval view,wrong status,reset oval view,oval view transY=" + searchView.getOvalView().getTranslationY() + ",oval_view_max_height=" + oval_view_max_height);
@@ -287,6 +289,10 @@ public class GSearchViewControl  {
 
     }
 
+
+    public void resetOpenSearch() {
+        doOpenSearch = false;
+    }
 
     public boolean isDoOpenSearch() {
         return doOpenSearch;

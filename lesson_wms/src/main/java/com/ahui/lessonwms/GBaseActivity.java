@@ -24,6 +24,8 @@ import android.widget.FrameLayout;
 import com.ahui.lessonwms.anim.AnimManager;
 import com.ahui.lessonwms.anim.ConstraintLayoutWrap;
 import com.ahui.lessonwms.anim.GSearchViewControl;
+import com.ahui.lessonwms.popupwindow.PopupWindowManager;
+import com.ahui.lessonwms.touch.GSearchViewController;
 import com.ahui.lessonwms.touch.GSearchViewTouchControl;
 import com.blankj.utilcode.util.DeviceUtils;
 import com.blankj.utilcode.util.ScreenUtils;
@@ -33,8 +35,10 @@ public class GBaseActivity extends AppCompatActivity {
     private static final String TAG = "GBaseActivity";
 
     private GSearchViewControl searchViewControl;
-    private View baseView;
+    private TouchView baseView;
     private GSearchViewTouchControl gSearchViewTouchControl;
+    private Button showPopupWindowBtn;
+    private PopupWindowManager popupWindowManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +47,20 @@ public class GBaseActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_google_view);
         baseView=findViewById(R.id.base_view);
-
+        showPopupWindowBtn=findViewById(R.id.button2);
 
         searchViewControl = new GSearchViewControl(this);
         gSearchViewTouchControl = new GSearchViewTouchControl(this, searchViewControl);
+
+        baseView.setController(new GSearchViewController(this, searchViewControl));
+        popupWindowManager = new PopupWindowManager(GBaseActivity.this);
+
+        showPopupWindowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    popupWindowManager.showPopupWindow();
+            }
+        });
     }
 
     @Override
@@ -55,13 +69,13 @@ public class GBaseActivity extends AppCompatActivity {
 
 
 //        uiHandler.sendEmptyMessageDelayed(MSG_HIDE_VIEW, 1000);
-        baseView.setOnTouchListener(new View.OnTouchListener() {
+        /*baseView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 gSearchViewTouchControl.onTouchEvent(event);
                 return true;
             }
-        });
+        });*/
     }
 
     private static final int MSG_HIDE_VIEW = 1001;
