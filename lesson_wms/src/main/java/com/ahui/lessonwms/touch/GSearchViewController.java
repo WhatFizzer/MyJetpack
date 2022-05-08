@@ -48,6 +48,10 @@ public class GSearchViewController implements SingleAxisSwipeDetector.Listener {
     private GBaseActivity mLauncher;
     private GSearchViewControl gSearchViewControl;
 
+    public GSearchViewControl getgSearchViewControl() {
+        return gSearchViewControl;
+    }
+
     // Ratio of transition process [0, 1] to drag displacement (px)
     private float mProgressMultiplier;
 

@@ -3,32 +3,24 @@ package com.ahui.lessonwms;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.content.Intent;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
-import com.ahui.lessonwms.anim.AnimManager;
-import com.ahui.lessonwms.anim.ConstraintLayoutWrap;
 import com.ahui.lessonwms.anim.GSearchViewControl;
 import com.ahui.lessonwms.popupwindow.PopupWindowManager;
 import com.ahui.lessonwms.touch.GSearchViewController;
 import com.ahui.lessonwms.touch.GSearchViewTouchControl;
-import com.blankj.utilcode.util.DeviceUtils;
-import com.blankj.utilcode.util.ScreenUtils;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class GBaseActivity extends AppCompatActivity {
 
@@ -39,6 +31,11 @@ public class GBaseActivity extends AppCompatActivity {
     private GSearchViewTouchControl gSearchViewTouchControl;
     private Button showPopupWindowBtn;
     private PopupWindowManager popupWindowManager;
+    private Button showBottomSheetDialog;
+    public GSearchViewController gSearchViewController;
+    public GSearchViewController getgSearchViewController() {
+        return gSearchViewController;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +49,53 @@ public class GBaseActivity extends AppCompatActivity {
         searchViewControl = new GSearchViewControl(this);
         gSearchViewTouchControl = new GSearchViewTouchControl(this, searchViewControl);
 
-        baseView.setController(new GSearchViewController(this, searchViewControl));
+        gSearchViewController=new GSearchViewController(this, searchViewControl);
+        baseView.setController(gSearchViewController);
         popupWindowManager = new PopupWindowManager(GBaseActivity.this);
 
         showPopupWindowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     popupWindowManager.showPopupWindow();
+                    setNavigationBarColor(Color.WHITE);
+            }
+        });
+
+        showBottomSheetDialog = findViewById(R.id.button3);
+        showBottomSheetDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+//                Log.d(TAG, "onClick: state=" + bottomSheetBehavior.getState());
+//                bottomSheetBehavior.setState(bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED?BottomSheetBehavior.STATE_EXPANDED:BottomSheetBehavior.STATE_COLLAPSED);
+
+                sheetDialog.show();
+            }
+        });
+        initBottomSheetDialog();
+//        initBottomSheetView();
+    }
+
+    BottomSheetBehavior bottomSheetBehavior;
+    private void initBottomSheetView() {
+        View bottomSheetView = LayoutInflater.from(GBaseActivity.this).inflate(R.layout.behavior_bottom_sheet_window_layout, null, false);
+//        ViewGroup decorView = (ViewGroup) this.getWindow().getDecorView();
+//        decorView.addView(bottomSheetView);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetView.findViewById(R.id.base_tips_view));
+    }
+
+    private BottomSheetDialog sheetDialog;
+
+    private void initBottomSheetDialog() {
+        sheetDialog = new BottomSheetDialog(GBaseActivity.this);
+        sheetDialog.setContentView(R.layout.behavior_bottom_sheet_window_layout);
+        sheetDialog.getWindow().setDimAmount(0);
+        sheetDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (gSearchViewController!=null) {
+                    gSearchViewController.getgSearchViewControl().makeAnim();
+                }
             }
         });
     }
@@ -67,6 +104,7 @@ public class GBaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        setNavigationBarColor(Color.TRANSPARENT);
 
 //        uiHandler.sendEmptyMessageDelayed(MSG_HIDE_VIEW, 1000);
         /*baseView.setOnTouchListener(new View.OnTouchListener() {
@@ -94,4 +132,8 @@ public class GBaseActivity extends AppCompatActivity {
             }
         }
     };
+
+    public void setNavigationBarColor(int color) {
+        getWindow().setNavigationBarColor(color);
+    }
 }

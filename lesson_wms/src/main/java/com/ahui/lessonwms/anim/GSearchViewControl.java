@@ -79,7 +79,13 @@ public class GSearchViewControl  {
         });
     }
 
-    private void makeAnim() {
+    public void makeAnim(long delay) {
+        if (delay>0) {
+            uiHandler.sendEmptyMessageDelayed(MSG_MAKE_ANIM, delay);
+        }
+    }
+
+    public void makeAnim() {
         searchView.getScrimFl().setVisibility(View.VISIBLE);
         int ovalWhiteMaxHeight = (int) mLauncher.getResources().getDimension(R.dimen.dimen_140);
         int googleGreyMaxHeight = (int) mLauncher.getResources().getDimension(R.dimen.dimen_118);
@@ -224,13 +230,17 @@ public class GSearchViewControl  {
         }
     }
 
-
+    private static final int MSG_MAKE_ANIM = 1001;
     //hide view, Type 1
     //wait 400ms
     private Handler uiHandler = new Handler(Looper.getMainLooper()) {
         @Override
         public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_MAKE_ANIM:
+                    makeAnim();
+                    break;
+            }
         }
     };
 
